@@ -1,115 +1,86 @@
 <style>
-.wrapper {
-	border: 1px solid #000;
-	width: 250px;
-	white-space: normal;
-	color : black;
-	background-color: #fff;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.uid {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.name {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.feature {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.node {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.release {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.iteration {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.estimate {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.task {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.state {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
-.colour {
-	height: 33px;
-	border-bottom: 1px solid black;
-	text-align: left;
-	font-family: verdana, Geneva, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px;
-}
+    .wrapper {
+        border: 1px solid #000;
+        white-space: normal;
+        color: black;
+        font-family: verdana, Geneva, sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 5px;
+    }
+    
+    .uid {
+        border-bottom: 1px solid black;
+        text-align: left;
+        padding: 5px;
+    }
+    
+    .name {
+        border-bottom: 1px solid black;
+        text-align: left;
+        padding: 5px;
+    }
+    
+    .feature {
+        border-bottom: 1px solid black;
+        text-align: left;
+        padding: 5px;
+    }
+    
+    .node {
+        border-bottom: 1px solid black;
+        text-align: left;
+        padding: 5px;
+    }
+    
+    .release {
+        border-bottom: 1px solid black;
+        text-align: left;
+        padding: 5px;
+    }
+    
+    .iteration {
+        border-bottom: 1px solid black;
+        text-align: left;
+        padding: 5px;
+    }
+    
+    .estimate {
+        height: 33px;
+        border-bottom: 1px solid black;
+        text-align: left;
+        padding: 5px;
+    }
+    
+    .task {
+        border-bottom: 1px solid black;
+        text-align: left;
+        padding: 5px;
+    }
+    
+    .state {
+        border-bottom: 1px solid black;
+        text-align: left;
+        font-weight: bold;
+        padding: 5px;
+    }
+    
+    .colour {
+        border-bottom: 1px solid black;
+        text-align: left;
+        font-weight: bold;
+        padding: 5px;
+    }
 </style>
 <div class="wrapper">
-	<div class="uid"> <span style="color:#145FAC">UID</span> <a href="{id_ref}" target="_blank">{id}</a></div>
-	<div class="css_Row_Name" id="css_Row_Name"><span style="color:#145FAC">Name</span> Site Expansion Template</div>
-	<div class="css_Row_Prnt" id="css_Row_Prnt"><span style="color:#145FAC">Feature</span> {feature}</div>
-	<div class="css_Row_Node" id="css_Row_Node"><span style="color:#145FAC">Node</span> {project}</div>
-	<div class="css_Row_Rele" id="css_Row_Rele"><span style="color:#145FAC">Release</span> {release}</div>
-	<div class="css_Row_Rele" id="css_Row_Rele"><span style="color:#145FAC">Iteration</span> {iteration}</div>
-	<div class="css_Row_Size" id="css_Row_Size"><span style="color:#145FAC">Plan Est: </span> {planEstimate}</div>
-	<div class="css_Row_Owne" id="css_Row_Owne"><span style="color:#145FAC">Task Est: </span> {taskEstimateTotal} <span style="color:#145FAC">Task Todo: </span> {taskRemainingTotal}</div>
-	<div class="css_Row_Rele" id="css_Row_Rele"><span style="color:#145FAC">Schedule Sate: </span> {state}</div>
-	<div class="css_Row_Colo" id="css_Row_Colo">&nbsp;</div>
+    <div class="uid"> <span style="color:#145FAC">UID</span> <a href="{id_ref}" target="_blank">{id}</a></div>
+    <div class="name" id="css_Row_Name"><span style="color:#145FAC">Name</span> Site Expansion Template</div>
+    <div class="feature" id="css_Row_Prnt"><span style="color:#145FAC">Feature</span> {feature}</div>
+    <div class="node" id="css_Row_Node"><span style="color:#145FAC">Node</span> {project}</div>
+    <div class="release" id="css_Row_Rele"><span style="color:#145FAC">Release</span> {release}</div>
+    <div class="iteration" id="css_Row_Rele"><span style="color:#145FAC">Iteration</span> {iteration}</div>
+    <div class="estimae" id="css_Row_Size"><span style="color:#145FAC">Plan Est: </span> {planEstimate}</div>
+    <div class="task" id="css_Row_Owne"><span style="color:#145FAC">Task Est: </span> {taskEstimateTotal} <span style="color:#145FAC">Task Todo: </span> {taskRemainingTotal}</div>
+    <div class="state" id="css_Row_Rele"><span style="color:#145FAC">Schedule Sate: </span> {state}</div>
+    <div class="colour" id="css_Row_Colo">&nbsp;</div>
 </div>
