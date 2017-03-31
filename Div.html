@@ -1,86 +1,78 @@
 <style>
+	a, a:link, a:visited, a:active{
+		color:white;
+		text-decoration: none;
+	}
+	a:hover{
+		color:#A9CA06;
+		text-decoration: none;
+	}
     .wrapper {
         border: 1px solid #000;
         white-space: normal;
-        color: black;
+        color: white;
         font-family: verdana, Geneva, sans-serif;
         font-size: 12px;
-        font-weight: bold;
-        padding: 5px;
+        padding: 5px !important;
+        background: #3D3D3D;
     }
+	
+	.padding {
+        padding: 5px;
+	}
     
     .uid {
-        border-bottom: 1px solid black;
         text-align: left;
-        padding: 5px;
+        border-bottom: 1px solid #1E1E1E;
     }
     
     .name {
-        border-bottom: 1px solid black;
         text-align: left;
-        padding: 5px;
     }
     
     .feature {
-        border-bottom: 1px solid black;
         text-align: left;
-        padding: 5px;
     }
     
     .node {
-        border-bottom: 1px solid black;
         text-align: left;
-        padding: 5px;
     }
     
     .release {
-        border-bottom: 1px solid black;
         text-align: left;
-        padding: 5px;
     }
     
     .iteration {
-        border-bottom: 1px solid black;
         text-align: left;
-        padding: 5px;
     }
     
     .estimate {
         height: 33px;
-        border-bottom: 1px solid black;
         text-align: left;
-        padding: 5px;
     }
     
     .task {
-        border-bottom: 1px solid black;
         text-align: left;
-        padding: 5px;
     }
     
     .state {
         border-bottom: 1px solid black;
         text-align: left;
-        font-weight: bold;
-        padding: 5px;
     }
     
     .colour {
-        border-bottom: 1px solid black;
         text-align: left;
-        font-weight: bold;
-        padding: 5px;
     }
 </style>
-<div class="wrapper">
-    <div class="uid"> <span style="color:#145FAC">UID</span> <a href="{id_ref}" target="_blank">{id}</a></div>
-    <div class="name" id="css_Row_Name"><span style="color:#145FAC">Name</span> Site Expansion Template</div>
-    <div class="feature" id="css_Row_Prnt"><span style="color:#145FAC">Feature</span> {feature}</div>
-    <div class="node" id="css_Row_Node"><span style="color:#145FAC">Node</span> {project}</div>
-    <div class="release" id="css_Row_Rele"><span style="color:#145FAC">Release</span> {release}</div>
-    <div class="iteration" id="css_Row_Rele"><span style="color:#145FAC">Iteration</span> {iteration}</div>
-    <div class="estimae" id="css_Row_Size"><span style="color:#145FAC">Plan Est: </span> {planEstimate}</div>
-    <div class="task" id="css_Row_Owne"><span style="color:#145FAC">Task Est: </span> {taskEstimateTotal} <span style="color:#145FAC">Task Todo: </span> {taskRemainingTotal}</div>
-    <div class="state" id="css_Row_Rele"><span style="color:#145FAC">Schedule Sate: </span> {state}</div>
-    <div class="colour" id="css_Row_Colo">&nbsp;</div>
-</div>
+'<div class="wrapper">'+
+    '<div class="uid padding"><a href="{id_ref}" target="_blank">{id}</a></div>'+
+    '<div class="name padding" >Name {name}</div>'+
+    '<div class="feature padding" id="css_Row_Prnt">Feature {feature}</div>'+
+    '<div class="node padding" id="css_Row_Node">Node {project}</div>'+
+    '<div class="release padding" id="css_Row_Rele">Release {release}</div>'+
+    '<div class="iteration padding" id="css_Row_Rele">Iteration {iteration}</div>'+
+    '<div class="estimae padding" id="css_Row_Size">Plan Est: {planEstimate}</div>'+
+    '<div class="task padding" id="css_Row_Owne">Task Est: {taskEstimateTotal} Task Todo: {taskRemainingTotal}</div>'+
+    '<div class="state padding" id="css_Row_Rele">Schedule Sate: {state}</div>'+
+    '<div class="colour padding" id="css_Row_Colo">&nbsp;</div>'+
+'</div>'

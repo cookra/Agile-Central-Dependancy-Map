@@ -1,36 +1,10 @@
 .app {
   /* Add app styles here */
-  font-family: verdana,    Geneva, sans-serif;
+  font-family: verdana, Geneva, sans-serif;
 }
 
 
 /* unvisited link */
-
-a:link {
-  color: black;
-}
-
-
-/* visited link */
-
-a:visited {
-  color: black;
-}
-
-
-/* mouse over link */
-
-a:hover {
-  color: black;
-  text-decoration: underline;
-}
-
-
-/* selected link */
-
-a:active {
-  color: black;
-}
 
 .div-container {
   overflow: auto;
@@ -41,9 +15,6 @@ a:active {
   /*overflow-y: auto;*/
   border-style: solid;
   border-width: 1px;
-  margin: 5px;
-  padding: 10px;
-  border-style: dotted;
 }
 
 .graph-node {
@@ -69,10 +40,8 @@ a:active {
 }
 
 .edgePath {
-  stroke: #000;
+  stroke: black;
   stroke-width: 1.5px;
-  stroke-dasharray: 0;
-  stroke-dashoffset: 0;
   fill: none;
 }
 
@@ -102,7 +71,8 @@ a:active {
 }
 
 .status-blocked {
-  border: 3px solid red;
+  color: white !important;
+  background: repeating-linear-gradient(-45deg, #F51B1B, #F51B1B 10px, #D81818 10px, #D81818 20px) !important;
 }
 
 .story-name {
@@ -115,45 +85,34 @@ a:active {
   background: repeating-linear-gradient(45deg, #351B75, #351B75 10px, #2F1867 10px, #2F1867 20px);
 }
 
-.idAndName {
-  color: black;
-  background: repeating-linear-gradient(45deg, #F0F0F0, #F0F0F0 10px, #D2D2D2 10px, #D2D2D2 20px);
-}
-
-.black-orange {
-  color: orange;
-  background: repeating-linear-gradient(45deg, #000000, #000000 10px, #333333 10px, #333333 20px);
-}
-
 .Backlog {
   color: black;
-  background: repeating-linear-gradient(45deg, #F7C430, #F7C430 10px, #E6B62C 10px, #E6B62C 20px);
+  background: #F7C430;
 }
 
 .Defined {
   color: black;
-  background: repeating-linear-gradient(45deg, #F99221, #F99221 10px, #E3841D 10px, #E3841D 20px);
+  background: #F99221;
 }
 
 .In-Progress {
   color: black;
-  background: repeating-linear-gradient(-45deg, #DAE31D, #DAE31D 10px, #C8D018 10px, #C8D018 20px);
+  background: #DAE31D;
 }
 
 .Completed {
   color: black;
-  background: repeating-linear-gradient(-45deg, #53C8F2, #53C8F2 10px, #4FBCE2 10px, #4FBCE2 20px);
+  background: #53C8F2;
 }
 
 .Accepted {
   color: black;
-  background: repeating-linear-gradient(45deg, #A8E000, #A8E000 10px, #B3EE01 10px, #B3EE01 20px);
+  background: #A8E000;
 }
 
 .Live {
   color: black;
   background: repeating-linear-gradient(-45deg, #C0FF00, #C0FF00 10px, #B3EE01 10px, #B3EE01 20px);
-  border: 1px dashed grey;
 }
 
 .red-white {
@@ -220,4 +179,84 @@ a:active {
 .move-white {
   color: white;
   background: repeating-linear-gradient(45deg, #7E90B4, #7E90B4 10px, #7586A7 10px, #7586A7 20px);
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: #A9CA06 !important;
+  text-decoration: none !important;
+}
+
+.wrapper {
+  white-space: normal;
+  color: white;
+  font-family: verdana, Geneva, sans-serif;
+  font-size: 12px;
+  background: #3D3D3D;
+  border: 1px solid black;
+}
+
+.padding {
+  padding: 5px;
+}
+
+.uid {
+  height: 33px;
+  text-align: left;
+  border-bottom: 1px solid #1E1E1E;
+}
+
+.name {
+  height: 33px;
+  text-align: left;
+}
+
+.feature {
+  height: 33px;
+  text-align: left;
+}
+
+.node {
+  height: 50px;
+  text-align: left;
+}
+
+.release {
+  height: 33px;
+  text-align: left;
+}
+
+.iteration {
+  height: 33px;
+  text-align: left;
+}
+
+.estimate {
+  height: 33px;
+  text-align: left;
+}
+
+.task {
+  height: 33px;
+  text-align: left;
+  border-bottom: 1px solid black;
+}
+
+.state {
+  height: 25px;
+  border-bottom: 1px solid black;
+  text-align: center;
+  font-weight: bold;
+}
+
+.colour {
+  text-align: left;
+  height:10px;
 }

@@ -159,19 +159,13 @@ Ext.define('CustomApp', {
             var project = _.find(app.projects, function (p) {
                 return snapshot.get("Project") === p.get("ObjectID");
             });
-
             return !(_.isUndefined(project) || _.isNull(project));
         });
         // console.log("filtered snapshots:",snaps.length);
-
         callback(null, snaps);
-
     },
-
     createIterationFilter: function (iterationIds) {
-
         var filter = null;
-
         _.each(iterationIds, function (iterationId, i) {
             var f = Ext.create('Rally.data.wsapi.Filter', {
                 property: 'ObjectID',
@@ -183,16 +177,13 @@ Ext.define('CustomApp', {
         // console.log("Iteration Filter:",filter.toString());
         return filter;
     },
-
     getIterationInformation: function (snapshots, callback) {
-
         // also check for epic iterations
         var epicIterations = _.uniq(_.flatten(_.map(snapshots, function (s) {
             return _.map(s.get("LeafNodes"), function (leaf) {
                 return (leaf.get("Iteration"));
             })
         })));
-
         var iterations = _.map(snapshots, function (s) {
             return s.get("Iteration");
         });
@@ -220,11 +211,9 @@ Ext.define('CustomApp', {
                 //
                 //
                 //
-
             };
             app.wsapiQuery(config, callback);
         };
-
         async.map(iterationChunks, readIteration, function (err, results) {
             console.log("iteration results", results);
             app.iterations = _.flatten(results);
@@ -236,7 +225,6 @@ Ext.define('CustomApp', {
     },
 
     readProject: function (pid, callback) {
-
         var config = {
             model: "Project",
             fetch: ['Name', 'ObjectID', 'State', 'c_NodeIdentifier'],
@@ -247,7 +235,6 @@ Ext.define('CustomApp', {
             }]
         };
         app.wsapiQuery(config, callback);
-
     },
 
     wsapiQuery: function (config, callback) {
@@ -316,7 +303,7 @@ Ext.define('CustomApp', {
 
         var configs = _.map(oidsArrays, function (oArray) {
             return {
-                fetch: ['Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'],
+                fetch: ['Owner', 'Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'],
                 hydrate: ['_TypeHierarchy', 'ScheduleState'],
                 find: {
                     'ObjectID': {
@@ -379,7 +366,7 @@ Ext.define('CustomApp', {
         /*
                 config.fetch = ['Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'];
         */
-        config.fetch = ['Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'];
+        config.fetch = ['Owner', 'Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'];
         config.hydrate = ['_TypeHierarchy', 'ScheduleState'];
         config.find = {
             '_TypeHierarchy': {
@@ -411,7 +398,7 @@ Ext.define('CustomApp', {
         var that = this;
         var config = {};
 
-        config.fetch = ['Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'];
+        config.fetch = ['Owner', 'Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'];
         config.hydrate = ['_TypeHierarchy', 'ScheduleState'];
         config.find = {
             '_TypeHierarchy': {
@@ -494,6 +481,9 @@ Ext.define('CustomApp', {
         });
 
     },
+    _displayColourClass: function (colour) {
+        return '"style="Background:'+colour+';"';
+    },
     _scheduleStateClass: function (state) {
         var myClass = 'Backlog';
         if (state === 'Backlog') {
@@ -532,7 +522,6 @@ Ext.define('CustomApp', {
         return "#" + RR + GG + BB;
     },
     _renderNodeTemplate: function (node) {
-
         console.log("");
         console.log("");
         console.log("");
@@ -541,10 +530,10 @@ Ext.define('CustomApp', {
         console.log("@ _renderNodeTemplate : Node Array : ", node);
         console.log("");
         console.log("");
-
         var displayColor = node.snapshot.get("DisplayColor");
         var feature = node.snapshot.get("Feature");
         var blocker = node.snapshot.get("Blocker");
+        var owner = node.snapshot.get("Owner");
         var dragAndDropRank = node.snapshot.get("DragAndDropRank");
         var acceptedDate = node.snapshot.get("AcceptedDate");
         var planEstimate = node.snapshot.get("PlanEstimate");
@@ -557,17 +546,15 @@ Ext.define('CustomApp', {
         var taskStatus = node.snapshot.get("TaskStatus");
         var snapshot = node.snapshot;
         var id_style = snapshot.get("ScheduleState") === "Accepted" ? "accepted-story" : "";
-
         var name = app.truncateNameTo > 0 ? node.snapshot.get("Name").substring(0, app.truncateNameTo) : node.snapshot.get("Name");
         var project = _.find(app.projects, function (p) {
             return node.snapshot.get("Project") === p.get("ObjectID");
         });
-
         var projectName = project ? project.get("Name") : "Not Found!";
         var blocked_class = node.snapshot.get("Blocked") === true ? "status-blocked" : "";
         var project_class = project.get("ObjectID") !== app.project.ObjectID ? "other-project" : "";
-
         var date_class = "";
+        console.log('xzcvxcvzxcvzxcvzxcvzcxvzxcv',blocked_class);
         // var iterationEndDate = app._iterationEndDate(node.snapshot.get("Iteration"));
         var iterationEndDate = app._iterationEndDate(app._getSnapshotIteration(node.snapshot));
         iterationEndDate = iterationEndDate ? moment(iterationEndDate).format("MM/DD/YYYY") : "";
@@ -575,52 +562,21 @@ Ext.define('CustomApp', {
             if (node.status.length > 0)
                 date_class = node.status[0].status;
         }
-
         var childCount = node.snapshot.get('Children').length > 0 ? " (" + node.snapshot.get('Children').length + ")" : "(0)";
-
-        var displayColor_Darken = this._colourDarken(displayColor, 30);
-
         var tpl = Ext.create('Ext.Template',
-            '<div class="css_Card_Con" style="border:1px solid #000;width:250px; white-space:normal;color :black;background-color:#fff;">' +
-            '<div class="css_Row_PUID" id="css_Row_PUID" style="height:33px;border-bottom:1px solid black;text-align:left;font-family:verdana, Geneva, sans-serif;font-size:18px;font-weight:bold;padding:5px;">' +
-            '<span style="color:#145FAC">UID</span> <a href="{id_ref}" target="_blank">{id}</a></div>' +
-            '<div class="css_Row_Name" id="css_Row_Name" style="height:55px;border-bottom:1px dashed grey;text-align:left;font-family:verdana, Geneva, sans-serif;font-size:12px;font-weight:normal;padding:5px;">' +
-            '<span style="color:#145FAC">Name</span> Site Expansion Template</div>' +
-            '<div class="css_Row_Prnt" id="css_Row_Prnt" style="height:55px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Feature</span> {feature}</div>' +
-            '<div class="css_Row_Node" id="css_Row_Node" style="height:55px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Node</span> {project}</div>' +
-            '<div class="css_Row_Rele" id="css_Row_Rele" style="height:23px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Release</span> {release}</div>' +
-            '<div class="css_Row_Rele" id="css_Row_Rele" style="height:23px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Iteration</span> {iteration}</div>' +
-            '<div class="css_Row_Size" id="css_Row_Size" style="height:23px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Plan Est: </span> {planEstimate}</div>' +
-            '<div class="css_Row_Owne" id="css_Row_Owne" style="height:23px;border-bottom:1px dashed  black;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Task Est: </span> {taskEstimateTotal} <span style="color:#145FAC">Task Todo: </span> {taskRemainingTotal}</td></tr></div>' +
-            '<div class="css_Row_Rele" id="css_Row_Rele" style="height:23px;border-bottom:1px solid grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Schedule Sate: </span> {state}</div>' +
-            '<div class="css_Row_Colo" id="css_Row_Colo" style="height:30px;border:none;background:{styleColor}">&nbsp;</div>' +
-            '</div>'
-
-            /*
-                "<table style='border:2px solid grey' class='{blocked_class} graph-node '>" +
-                "<tr><td><div class='divLayout {state_class}'>{state}</div></td></tr>" +
-                "<tr><td><div class='divLayout'>Accepted Date: {accDate}</td></tr>" +
-                "<tr><td><div class='divLayout'><a href='{id_ref}' target='_blank'>{id}</a>" +
-                "<tr><td><div class='divLayout'>Name: {name}</div></td></tr>" +
-                "<tr><td><div class='divLayout'>Feature: {feature}</td></tr>" +
-                "<tr><td><div class='divLayout'>Plan Est: {pEstimate}</td></tr>" +
-                "<tr><td><div class='divLayout'>Task Est: {taskEstimateTotal} Task Todo: {taskRemainingTotal}</td></tr>" +
-                "<tr><td><div class='divLayout'>Tasks: {tasks}</td></tr>" +
-                //"<tr><td><div class='divLayout'>Task Status: {TaskStatus}</td></tr>" +
-                //"<tr><td><div class='divLayout'>Rank: {rank}</td></tr>" +
-                "<tr><td><div class='divLayout'>Child Count: {child_count}</span></div></td></tr>" +
-                "<tr><td><div class='divLayout'>Project: {project}</td></tr>" +
-                "<tr><td><div class='divLayout' {styleColor}'></td></tr>" +
-                "</tr></table>"
-                */
-            , {
+            '<div class="wrapper {blocked_class}">' +
+            '<div class="uid padding"><a href="{id_ref}" target="_blank">{id}</a></div>' +
+            '<div class="name padding">Name {name}</div>' +
+            '<div class="feature padding">Feature {feature}</div>' +
+            '<div class="node padding">Node {project}</div>' +
+            //'<div class="release padding">Release {release}</div>' +
+            //'<div class="iteration padding">Iteration {iteration}</div>' +
+            //'<div class="estimae padding">Plan Est: {planEstimate}</div>' +
+            //'<div class="task padding">Task Est: {taskEstimateTotal} Task Todo: {taskRemainingTotal}</div>' +
+            '<div class="node padding">Owner {owner}</div>' +
+            '<div class="state padding {state_class}">{state}</div>' +
+            '<div class="colour padding {colour_style} {state_class}">&nbsp;</div>' +
+            '</div>', {
                 compiled: true
             });
         return tpl.apply({
@@ -637,7 +593,6 @@ Ext.define('CustomApp', {
             blocked_class: blocked_class,
             child_count: childCount,
             feature: feature,
-            //rank: dragAndDropRank,
             accDate: acceptedDate,
             planEstimate: planEstimate,
             taskEstimateTotal: taskEstimateTotal,
@@ -646,7 +601,8 @@ Ext.define('CustomApp', {
             taskStatus: taskStatus,
             iteration: iteration,
             release: release,
-            styleColor: 'height:25px;background: repeating-linear-gradient(  -60deg,  ' + displayColor + ',' + displayColor + ' 10px,  ' + displayColor_Darken + ' 10px,  ' + displayColor_Darken + ' 20px)',
+            owner: owner,
+            colour_style: this._displayColourClass(displayColor),
 
         });
 
@@ -1055,22 +1011,6 @@ outEdges=function(a,b){this._strictGetNode(a);var c=f.union(d.values(this._outEd
   font-family: verdana, Geneva, sans-serif;
 }
 /* unvisited link */
-a:link {
-  color: black;
-}
-/* visited link */
-a:visited {
-  color: black;
-}
-/* mouse over link */
-a:hover {
-  color: black;
-  text-decoration: underline;
-}
-/* selected link */
-a:active {
-  color: black;
-}
 .div-container {
   overflow: auto;
   /*width:1200px;*/
@@ -1080,9 +1020,6 @@ a:active {
   /*overflow-y: auto;*/
   border-style: solid;
   border-width: 1px;
-  margin: 5px;
-  padding: 10px;
-  border-style: dotted;
 }
 .graph-node {
   padding: 50px;
@@ -1103,10 +1040,8 @@ a:active {
   fill: #fff;
 }
 .edgePath {
-  stroke: #000;
+  stroke: black;
   stroke-width: 1.5px;
-  stroke-dasharray: 0;
-  stroke-dashoffset: 0;
   fill: none;
 }
 .divLayout {
@@ -1130,7 +1065,8 @@ a:active {
   background-color: #FF6666;
 }
 .status-blocked {
-  border: 3px solid red;
+  color: white !important;
+  background: repeating-linear-gradient(-45deg, #f51b1b, #f51b1b 10px, #d81818 10px, #d81818 20px) !important;
 }
 .story-name {
   float: left;
@@ -1140,38 +1076,29 @@ a:active {
   color: white;
   background: repeating-linear-gradient(45deg, #351b75, #351b75 10px, #2f1867 10px, #2f1867 20px);
 }
-.idAndName {
-  color: black;
-  background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 10px, #d2d2d2 10px, #d2d2d2 20px);
-}
-.black-orange {
-  color: orange;
-  background: repeating-linear-gradient(45deg, #000000, #000000 10px, #333333 10px, #333333 20px);
-}
 .Backlog {
   color: black;
-  background: repeating-linear-gradient(45deg, #f7c430, #f7c430 10px, #e6b62c 10px, #e6b62c 20px);
+  background: #F7C430;
 }
 .Defined {
   color: black;
-  background: repeating-linear-gradient(45deg, #f99221, #f99221 10px, #e3841d 10px, #e3841d 20px);
+  background: #F99221;
 }
 .In-Progress {
   color: black;
-  background: repeating-linear-gradient(-45deg, #dae31d, #dae31d 10px, #c8d018 10px, #c8d018 20px);
+  background: #DAE31D;
 }
 .Completed {
   color: black;
-  background: repeating-linear-gradient(-45deg, #53c8f2, #53c8f2 10px, #4fbce2 10px, #4fbce2 20px);
+  background: #53C8F2;
 }
 .Accepted {
   color: black;
-  background: repeating-linear-gradient(45deg, #a8e000, #a8e000 10px, #b3ee01 10px, #b3ee01 20px);
+  background: #A8E000;
 }
 .Live {
   color: black;
   background: repeating-linear-gradient(-45deg, #c0ff00, #c0ff00 10px, #b3ee01 10px, #b3ee01 20px);
-  border: 1px dashed grey;
 }
 .red-white {
   color: white;
@@ -1225,6 +1152,72 @@ a:active {
 .move-white {
   color: white;
   background: repeating-linear-gradient(45deg, #7e90b4, #7e90b4 10px, #7586a7 10px, #7586a7 20px);
+}
+a,
+a:link,
+a:visited,
+a:active {
+  color: white !important;
+  text-decoration: none !important;
+}
+a:hover {
+  color: #A9CA06 !important;
+  text-decoration: none !important;
+}
+.wrapper {
+  white-space: normal;
+  color: white;
+  font-family: verdana, Geneva, sans-serif;
+  font-size: 12px;
+  background: #3D3D3D;
+  border: 1px solid black;
+}
+.padding {
+  padding: 5px;
+}
+.uid {
+  height: 33px;
+  text-align: left;
+  border-bottom: 1px solid #1E1E1E;
+}
+.name {
+  height: 33px;
+  text-align: left;
+}
+.feature {
+  height: 33px;
+  text-align: left;
+}
+.node {
+  height: 50px;
+  text-align: left;
+}
+.release {
+  height: 33px;
+  text-align: left;
+}
+.iteration {
+  height: 33px;
+  text-align: left;
+}
+.estimate {
+  height: 33px;
+  text-align: left;
+}
+.task {
+  height: 33px;
+  text-align: left;
+  border-bottom: 1px solid black;
+}
+.state {
+  height: 25px;
+  border-bottom: 1px solid black;
+  text-align: center;
+  font-weight: bold;
+}
+.colour {
+  text-align: left;
+  height: 10px;
 }
 
     </style>
