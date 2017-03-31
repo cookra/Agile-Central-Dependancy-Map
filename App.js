@@ -252,8 +252,8 @@ Ext.define('CustomApp', {
             listeners: {
                 scope: this,
                 load: function (store, data) {
-                    console.log('@ NODE WSAPI QUERY >> Store : ',store);
-                    console.log('@ NODE WSAPI QUERY >> Data : ',data);
+                    console.log('@ NODE WSAPI QUERY >> Store : ', store);
+                    console.log('@ NODE WSAPI QUERY >> Data : ', data);
                     console.log("");
                     callback(null, data);
                 }
@@ -367,9 +367,9 @@ Ext.define('CustomApp', {
     leafNodeSnapshots: function (epicSnapshot, callback) {
 
         var config = {};
-/*
-        config.fetch = ['Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'];
-*/
+        /*
+                config.fetch = ['Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'];
+        */
         config.fetch = ['Feature', 'ObjectID', '_UnformattedID', '_TypeHierarchy', 'Predecessors', 'Successors', 'AcceptedDate', 'Blocked', 'Blocker', 'PlanEstimate', 'TaskEstimateTotal', 'TaskRemainingTotal', 'Parent', 'ScheduleState', 'Name', 'Project', 'Iteration', 'FormattedID', 'Children', 'Tasks', 'TaskStatus', 'DisplayColor'];
         config.hydrate = ['_TypeHierarchy', 'ScheduleState'];
         config.find = {
@@ -524,7 +524,14 @@ Ext.define('CustomApp', {
     },
     _renderNodeTemplate: function (node) {
 
-        console.log("Generating Templet With the Following Array: ", node);
+        console.log("");
+        console.log("");
+        console.log("");
+        console.log("User Story : ", node.snapshot.get("FormattedID"));
+        console.log("");
+        console.log("@ _renderNodeTemplate : Node Array : ", node);
+        console.log("");
+        console.log("");
 
         var displayColor = node.snapshot.get("DisplayColor");
         var feature = node.snapshot.get("Feature");
@@ -578,13 +585,11 @@ Ext.define('CustomApp', {
             '<span style="color:#145FAC">Release</span> {release}</div>' +
             '<div class="css_Row_Rele" id="css_Row_Rele" style="height:23px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
             '<span style="color:#145FAC">Iteration</span> {iteration}</div>' +
-            '<div class="css_Row_Rele" id="css_Row_Rele" style="height:23px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Task Est: </span> {taskEstimateTotal} <span style="color:#145FAC">Task Todo: </span> {taskRemainingTotal}</td></tr></div>' +
-            '<div class="css_Row_Rele" id="css_Row_Rele" style="height:23px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
-            '<span style="color:#145FAC">Release: </span> {release}</div>' +
             '<div class="css_Row_Size" id="css_Row_Size" style="height:23px;border-bottom:1px dashed grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
             '<span style="color:#145FAC">Plan Est: </span> {planEstimate}</div>' +
-            '<div class="css_Row_Owne" id="css_Row_Owne" style="height:23px;border-bottom:1px solid  black;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
+            '<div class="css_Row_Owne" id="css_Row_Owne" style="height:23px;border-bottom:1px dashed  black;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
+            '<span style="color:#145FAC">Task Est: </span> {taskEstimateTotal} <span style="color:#145FAC">Task Todo: </span> {taskRemainingTotal}</td></tr></div>' +
+            '<div class="css_Row_Rele" id="css_Row_Rele" style="height:23px;border-bottom:1px solid grey;text-align:left;font-family :verdana, Geneva, sans-serif;font-size:11px;font-weight :normal;padding:5px;">' +
             '<span style="color:#145FAC">Schedule Sate: </span> {state}</div>' +
             '<div class="css_Row_Colo" id="css_Row_Colo" style="height:30px;border:none;background:{styleColor}">&nbsp;</div>' +
             '</div>'
@@ -632,7 +637,7 @@ Ext.define('CustomApp', {
             taskStatus: taskStatus,
             iteration: iteration,
             release: release,
-            styleColor: 'height:25px;background: repeating-linear-gradient(  -45deg,  ' + displayColor + ',' + displayColor + ' 10px,  ' + displayColor_Darken + ' 10px,  ' + displayColor_Darken + ' 20px)',
+            styleColor: 'height:25px;background: repeating-linear-gradient(  -60deg,  ' + displayColor + ',' + displayColor + ' 10px,  ' + displayColor_Darken + ' 10px,  ' + displayColor_Darken + ' 20px)',
 
         });
 
@@ -945,7 +950,7 @@ Ext.define('CustomApp', {
             var i = leaf.get("Iteration");
             return app._iterationEndDate(i);
         });
-        console.log("@ _getSnapshotIteration : Max : ",max);
+        console.log("@ _getSnapshotIteration : Max : ", max);
         return max.get("Iteration");
     },
 
@@ -973,7 +978,7 @@ Ext.define('CustomApp', {
 
 
     filterSuccessor: function (combo, records, eOpts) {
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ',combo, records);
+        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ', combo, records);
         var selected = records[0];
         var root = _.find(app.nodes, function (node) {
             return node.id === selected.get("id");
